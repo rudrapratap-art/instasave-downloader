@@ -100,7 +100,7 @@ def index():
                 <p class="text-gray-600">Your downloads are processed securely with privacy protection.</p>
             </div>
             <div class="feature-card bg-white rounded-xl p-6 shadow-lg">
-                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                <div class="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
                     <i class="fas fa-clock text-purple-600 text-xl"></i>
                 </div>
                 <h3 class="text-xl font-semibold text-gray-800 mb-2">24/7 Availability</h3>
@@ -141,7 +141,7 @@ def index():
                         Processing Command
                     </h3>
                     <div id="commandDisplay" class="bg-black rounded p-3 text-green-400 font-mono text-sm break-all">
-                        yt-dlp -f best ""
+                        yt-dlp ""
                     </div>
                 </div>
 
@@ -229,9 +229,9 @@ def index():
         function updateCommand() {
             const url = urlInput.value.trim();
             if (url) {
-                commandDisplay.textContent = `yt-dlp -f best "${url}"`;
+                commandDisplay.textContent = `yt-dlp "${url}"`;
             } else {
-                commandDisplay.textContent = 'yt-dlp -f best ""';
+                commandDisplay.textContent = 'yt-dlp ""';
             }
         }
 
@@ -353,8 +353,8 @@ def download():
             logger.warning(f"Invalid URL rejected: {url} - {message}")
             return jsonify({'success': False, 'error': message})
         
-        # Run yt-dlp command with timeout
-        cmd = ['yt-dlp', '-f', 'best', '--no-check-certificate', url]
+        # Run yt-dlp command without format selection
+        cmd = ['yt-dlp', '--no-check-certificate', url]
         
         try:
             result = subprocess.run(
